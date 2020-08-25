@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,7 +14,6 @@
 		8C5166FB24F5A67700CAD239 /* Other.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C5166F724F5A67700CAD239 /* Other.storyboard */; };
 		8C5166FC24F5A67700CAD239 /* OtherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5166F824F5A67700CAD239 /* OtherViewController.swift */; };
 		8C5166FD24F5A67700CAD239 /* LeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5166F924F5A67700CAD239 /* LeftViewController.swift */; };
-		8C5166FF24F5A70600CAD239 /* DrawerMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 8C5166FE24F5A70600CAD239 /* DrawerMenu */; };
 		8C82E42624F5A1970057E4F9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C82E42524F5A1970057E4F9 /* AppDelegate.swift */; };
 		8C82E42824F5A1970057E4F9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C82E42724F5A1970057E4F9 /* SceneDelegate.swift */; };
 		8C82E42A24F5A1970057E4F9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C82E42924F5A1970057E4F9 /* ViewController.swift */; };
@@ -25,7 +24,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		8C5166EC24F5A22000CAD239 /* DrawerMenu */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DrawerMenu; path = ../DrawerMenu; sourceTree = "<group>"; };
 		8C5166ED24F5A5AA00CAD239 /* ApplicationRootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationRootViewController.swift; sourceTree = "<group>"; };
 		8C5166F224F5A61100CAD239 /* CenterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenterViewController.swift; sourceTree = "<group>"; };
 		8C5166F324F5A61200CAD239 /* Center.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Center.storyboard; sourceTree = "<group>"; };
@@ -49,7 +47,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8C5166FF24F5A70600CAD239 /* DrawerMenu in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,7 +63,6 @@
 		8C82E41924F5A1970057E4F9 = {
 			isa = PBXGroup;
 			children = (
-				8C5166EC24F5A22000CAD239 /* DrawerMenu */,
 				8C82E42424F5A1970057E4F9 /* Example */,
 				8C82E42324F5A1970057E4F9 /* Products */,
 				8C5166EF24F5A5C500CAD239 /* Frameworks */,
@@ -120,7 +116,6 @@
 			);
 			name = Example;
 			packageProductDependencies = (
-				8C5166FE24F5A70600CAD239 /* DrawerMenu */,
 			);
 			productName = Example;
 			productReference = 8C82E42224F5A1970057E4F9 /* Example.app */;
@@ -386,13 +381,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		8C5166FE24F5A70600CAD239 /* DrawerMenu */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = DrawerMenu;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8C82E41A24F5A1970057E4F9 /* Project object */;
 }
