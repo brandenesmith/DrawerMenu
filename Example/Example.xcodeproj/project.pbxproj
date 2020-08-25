@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,6 +14,7 @@
 		8C5166FB24F5A67700CAD239 /* Other.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C5166F724F5A67700CAD239 /* Other.storyboard */; };
 		8C5166FC24F5A67700CAD239 /* OtherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5166F824F5A67700CAD239 /* OtherViewController.swift */; };
 		8C5166FD24F5A67700CAD239 /* LeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5166F924F5A67700CAD239 /* LeftViewController.swift */; };
+		8C51670C24F5AE2E00CAD239 /* DrawerMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 8C51670B24F5AE2E00CAD239 /* DrawerMenu */; };
 		8C82E42624F5A1970057E4F9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C82E42524F5A1970057E4F9 /* AppDelegate.swift */; };
 		8C82E42824F5A1970057E4F9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C82E42724F5A1970057E4F9 /* SceneDelegate.swift */; };
 		8C82E42A24F5A1970057E4F9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C82E42924F5A1970057E4F9 /* ViewController.swift */; };
@@ -47,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C51670C24F5AE2E00CAD239 /* DrawerMenu in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,6 +118,7 @@
 			);
 			name = Example;
 			packageProductDependencies = (
+				8C51670B24F5AE2E00CAD239 /* DrawerMenu */,
 			);
 			productName = Example;
 			productReference = 8C82E42224F5A1970057E4F9 /* Example.app */;
@@ -144,6 +147,9 @@
 				Base,
 			);
 			mainGroup = 8C82E41924F5A1970057E4F9;
+			packageReferences = (
+				8C51670A24F5AE2E00CAD239 /* XCRemoteSwiftPackageReference "DrawerMenu" */,
+			);
 			productRefGroup = 8C82E42324F5A1970057E4F9 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -381,6 +387,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8C51670A24F5AE2E00CAD239 /* XCRemoteSwiftPackageReference "DrawerMenu" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:brandenesmith/DrawerMenu.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8C51670B24F5AE2E00CAD239 /* DrawerMenu */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8C51670A24F5AE2E00CAD239 /* XCRemoteSwiftPackageReference "DrawerMenu" */;
+			productName = DrawerMenu;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8C82E41A24F5A1970057E4F9 /* Project object */;
 }
