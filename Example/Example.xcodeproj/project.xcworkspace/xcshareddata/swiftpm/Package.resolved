@@ -5,8 +5,8 @@
         "package": "DrawerMenu",
         "repositoryURL": "git@github.com:brandenesmith/DrawerMenu.git",
         "state": {
-          "branch": "feature/AddSPMSupport",
-          "revision": "40cc5b7c2800964e6e95650d974da64c5d7ce1d7",
+          "branch": "master",
+          "revision": "1bf7e471177768ce9f7c1e3dbb376aa5fac360ed",
           "version": null
         }
       }

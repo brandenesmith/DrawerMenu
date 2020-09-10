@@ -140,6 +140,12 @@ public class DrawerMenu: UIViewController, UIGestureRecognizerDelegate {
 
     public func open(to side: Side, animated: Bool = true, completion: (() -> Void)? = nil) {
         if side == .left {
+            guard let leftContainer = leftContainerView else { return }
+
+            if !self.view.subviews.contains(leftContainer) {
+                self.view.addSubview(leftContainer)
+            }
+
             updateLeftProgress(status: .open, animated: animated) { [weak self] in
                 completion?()
                 self?.isOpenLeft = true
@@ -147,6 +153,12 @@ public class DrawerMenu: UIViewController, UIGestureRecognizerDelegate {
             }
         }
         if side == .right {
+            guard let rightContainer = rightContainerView else { return }
+
+            if !self.view.subviews.contains(rightContainer) {
+                self.view.addSubview(rightContainer)
+            }
+
             updateRightProgress(status: .open, animated: animated) { [weak self] in
                 completion?()
                 self?.isOpenRight = true
@@ -196,9 +208,13 @@ public class DrawerMenu: UIViewController, UIGestureRecognizerDelegate {
             leftContainerView = UIView()
             leftContainerView?.frame = frame
             leftContainerView?.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-            view.addSubview(leftContainerView!)
 
             addChild(left)
+
+            // Note that we are adding the left view to the leftContainerView here, but
+            // we will lazily add the left container view to avoid life cycle methods
+            // such as viewDidAppear: from being called before the view has actually
+            // appeared.
             leftContainerView?.addSubview(left.view)
             left.didMove(toParent: self)
 
@@ -216,9 +232,14 @@ public class DrawerMenu: UIViewController, UIGestureRecognizerDelegate {
             rightContainerView = UIView()
             rightContainerView?.frame = frame
             rightContainerView?.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-            view.addSubview(rightContainerView!)
+
 
             addChild(right)
+
+            // Note that we are adding the right view to the rightContainerView here, but
+            // we will lazily add the right container view to avoid life cycle methods
+            // such as viewDidAppear: from being called before the view has actually
+            // appeared.
             rightContainerView?.addSubview(right.view)
             right.didMove(toParent: self)
 
