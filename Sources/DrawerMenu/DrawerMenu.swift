@@ -144,6 +144,7 @@ public class DrawerMenu: UIViewController, UIGestureRecognizerDelegate {
 
             if !self.view.subviews.contains(leftContainer) {
                 self.view.addSubview(leftContainer)
+                self.view.layoutIfNeeded()
             }
 
             updateLeftProgress(status: .open, animated: animated) { [weak self] in
@@ -157,6 +158,7 @@ public class DrawerMenu: UIViewController, UIGestureRecognizerDelegate {
 
             if !self.view.subviews.contains(rightContainer) {
                 self.view.addSubview(rightContainer)
+                self.view.layoutIfNeeded()
             }
 
             updateRightProgress(status: .open, animated: animated) { [weak self] in
