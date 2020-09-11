@@ -214,6 +214,10 @@ public class DrawerMenu: UIViewController, UIGestureRecognizerDelegate {
             leftContainerView?.addSubview(left.view)
             left.didMove(toParent: self)
 
+            // HACK:
+            left.beginAppearanceTransition(false, animated: false)
+            left.endAppearanceTransition()
+
             close(to: .left, animated: false, completion: nil)
         }
 
