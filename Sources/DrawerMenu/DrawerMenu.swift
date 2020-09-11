@@ -73,6 +73,8 @@ public class DrawerMenu: UIViewController, UIGestureRecognizerDelegate {
     private var panGestureRecognizer: UIPanGestureRecognizer?
     private var leftEdgePanGestureRecognizer: UIScreenEdgePanGestureRecognizer?
     private var rightEdgePanGestureRecognizer: UIScreenEdgePanGestureRecognizer?
+    private var isFirstOpenLeft: Bool = true
+    private var isFirstOpenRight: Bool = true
 
     private var leftProgress: CGFloat {
         get {
@@ -146,6 +148,7 @@ public class DrawerMenu: UIViewController, UIGestureRecognizerDelegate {
                 completion?()
                 self?.isOpenLeft = true
                 self?.isOpenRight = false
+                self?.isFirstOpenLeft = false
             }
         }
         if side == .right {
@@ -155,6 +158,7 @@ public class DrawerMenu: UIViewController, UIGestureRecognizerDelegate {
                 completion?()
                 self?.isOpenRight = true
                 self?.isOpenLeft = false
+                self?.isFirstOpenRight = false
             }
         }
     }
@@ -403,11 +407,20 @@ public class DrawerMenu: UIViewController, UIGestureRecognizerDelegate {
 
     private func callViewControllerLifeCycle(side: Side, status: MenuStatus) -> Bool {
         var isOpen: Bool = false
-        if side == .left { isOpen = isOpenLeft }
-        if side == .right { isOpen = isOpenRight }
+        var isFirstOpen: Bool = false
+
+        if side == .left {
+            isOpen = isOpenLeft
+            isFirstOpen = isFirstOpenLeft
+        }
+
+        if side == .right {
+            isOpen = isOpenRight
+            isFirstOpen = isFirstOpenRight
+        }
 
         if status == .open {
-            return !(isOpen && status == .open)
+            return !(isOpen && status == .open) && !isFirstOpen
         } else {
             return !(!isOpen && status == .close)
         }
@@ -418,7 +431,7 @@ public class DrawerMenu: UIViewController, UIGestureRecognizerDelegate {
         if isOpenLeft { return }
 
         lazilyAddRightView()
-        
+
         let location = gesture.location(in: view)
 
         switch gesture.state {
