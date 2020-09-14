@@ -73,6 +73,8 @@ public class DrawerMenu: UIViewController, UIGestureRecognizerDelegate {
     private var panGestureRecognizer: UIPanGestureRecognizer?
     private var leftEdgePanGestureRecognizer: UIScreenEdgePanGestureRecognizer?
     private var rightEdgePanGestureRecognizer: UIScreenEdgePanGestureRecognizer?
+    private var isFirstOpenLeft: Bool = true
+    private var isFirstOpenRight: Bool = true
 
     private var leftProgress: CGFloat {
         get {
@@ -140,29 +142,23 @@ public class DrawerMenu: UIViewController, UIGestureRecognizerDelegate {
 
     public func open(to side: Side, animated: Bool = true, completion: (() -> Void)? = nil) {
         if side == .left {
-            guard let leftContainer = leftContainerView else { return }
-
-            if !self.view.subviews.contains(leftContainer) {
-                self.view.addSubview(leftContainer)
-            }
+            lazilyAddLeftView()
 
             updateLeftProgress(status: .open, animated: animated) { [weak self] in
                 completion?()
                 self?.isOpenLeft = true
                 self?.isOpenRight = false
+                self?.isFirstOpenLeft = false
             }
         }
         if side == .right {
-            guard let rightContainer = rightContainerView else { return }
-
-            if !self.view.subviews.contains(rightContainer) {
-                self.view.addSubview(rightContainer)
-            }
+            lazilyAddRightView()
 
             updateRightProgress(status: .open, animated: animated) { [weak self] in
                 completion?()
                 self?.isOpenRight = true
                 self?.isOpenLeft = false
+                self?.isFirstOpenRight = false
             }
         }
     }
@@ -217,6 +213,10 @@ public class DrawerMenu: UIViewController, UIGestureRecognizerDelegate {
             // appeared.
             leftContainerView?.addSubview(left.view)
             left.didMove(toParent: self)
+
+            // HACK:
+            left.beginAppearanceTransition(false, animated: false)
+            left.endAppearanceTransition()
 
             close(to: .left, animated: false, completion: nil)
         }
@@ -411,11 +411,20 @@ public class DrawerMenu: UIViewController, UIGestureRecognizerDelegate {
 
     private func callViewControllerLifeCycle(side: Side, status: MenuStatus) -> Bool {
         var isOpen: Bool = false
-        if side == .left { isOpen = isOpenLeft }
-        if side == .right { isOpen = isOpenRight }
+        var isFirstOpen: Bool = false
+
+        if side == .left {
+            isOpen = isOpenLeft
+            isFirstOpen = isFirstOpenLeft
+        }
+
+        if side == .right {
+            isOpen = isOpenRight
+            isFirstOpen = isFirstOpenRight
+        }
 
         if status == .open {
-            return !(isOpen && status == .open)
+            return !(isOpen && status == .open) && !isFirstOpen
         } else {
             return !(!isOpen && status == .close)
         }
@@ -424,6 +433,9 @@ public class DrawerMenu: UIViewController, UIGestureRecognizerDelegate {
     private func rightMenuGestureHandle(gesture: UIPanGestureRecognizer) {
 
         if isOpenLeft { return }
+
+        lazilyAddRightView()
+
         let location = gesture.location(in: view)
 
         switch gesture.state {
@@ -452,6 +464,8 @@ public class DrawerMenu: UIViewController, UIGestureRecognizerDelegate {
     private func leftMenuGestureHandle(gesture: UIPanGestureRecognizer) {
 
         if isOpenRight { return }
+
+        lazilyAddLeftView()
 
         let location = gesture.location(in: view)
         switch gesture.state {
@@ -488,6 +502,25 @@ public class DrawerMenu: UIViewController, UIGestureRecognizerDelegate {
             rightBeganStatus = rightProgress == 1
         default: break
         }
+    }
+
+    private func lazilyAddLeftView() {
+        guard let leftContainer = leftContainerView else { return }
+
+        if !self.view.subviews.contains(leftContainer) {
+            self.view.addSubview(leftContainer)
+            self.view.layoutIfNeeded()
+        }
+    }
+
+    private func lazilyAddRightView() {
+        guard let rightContainer = rightContainerView else { return }
+
+        if !self.view.subviews.contains(rightContainer) {
+            self.view.addSubview(rightContainer)
+            self.view.layoutIfNeeded()
+        }
+
     }
 
     // MARK: Selector
