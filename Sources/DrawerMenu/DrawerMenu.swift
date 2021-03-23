@@ -20,10 +20,24 @@ public extension UIViewController {
 
 public class DrawerMenu: UIViewController, UIGestureRecognizerDelegate {
 
-    public enum PanGestureType { case pan, screenEdge, none }
-    public enum Side { case left, right }
+    public enum PanGestureType {
+        case pan
+        case screenEdge
+        case none
+    }
+
+    public enum Side {
+        case left
+        case right
+    }
+
     public enum AutomaticallyOpenClose {
-        case none, low, middle, high, custom(CGFloat) // custom: 0 - 100
+        case none
+        case low
+        case middle
+        case high
+        case custom(CGFloat) // custom: 0 - 100
+
         func percentage() -> CGFloat {
             switch self {
             case .none: return 0
@@ -101,10 +115,10 @@ public class DrawerMenu: UIViewController, UIGestureRecognizerDelegate {
     }
 
     public init(center: UIViewController, left: UIViewController? = nil, right: UIViewController? = nil) {
-
         centerViewController = center
         leftViewController = left
         rightViewContoller = right
+
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -546,14 +560,18 @@ public class DrawerMenu: UIViewController, UIGestureRecognizerDelegate {
     }
 
     @objc private func panGestureCallback(gestureRecognizer: UIPanGestureRecognizer) {
-
         setupGestureBegan(gestureRecognizer: gestureRecognizer)
 
         let location = gestureRecognizer.location(in: view)
-        let diff = location.x - startLocation.x
+        let diffX = location.x - startLocation.x
+        let diffY = location.y - startLocation.y
+
+        // If the majority of the pan is horizontal, assume they are trying to open the drawer.
+        // If not, assume they are scrolling content.
+        guard abs(diffX) >= abs(diffY) else { return }
 
         // Swipe right
-        if diff > 0 {
+        if diffX > 0 {
             if rightProgress > 0 {
                 rightMenuGestureHandle(gesture: gestureRecognizer)
             } else {
@@ -561,7 +579,7 @@ public class DrawerMenu: UIViewController, UIGestureRecognizerDelegate {
             }
         }
         // Swipe left
-        if diff < 0 {
+        if diffX < 0 {
             if leftProgress > 0 {
                 leftMenuGestureHandle(gesture: gestureRecognizer)
             } else {
